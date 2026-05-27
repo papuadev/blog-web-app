@@ -15,8 +15,9 @@ function Navbar() {
             Posts
           </Link>
         </div>
+
         <button className="bg-black text-white px-5 py-2 rounded-lg">
-          Sign In
+          <Link to={"/auth/login"}>Log In</Link>
         </button>
       </nav>
     </header>

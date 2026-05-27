@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import PostPage from "./pages/PostPage";
 import DetailPostPage from "./pages/DetailPostPage";
+import LoginPage from "./pages/auth/LoginPage";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/posts" element={<PostPage />} />
         <Route path="/posts/:id" element={<DetailPostPage />} />
+        <Route path="/auth/login" element={<LoginPage />} />
       </Routes>
     </BrowserRouter>
   );

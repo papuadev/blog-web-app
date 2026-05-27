@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { getPosts } from "../services/post.service";
 import type { Post } from "../types/post.type";
-import PostCard from "../components/posts/PostCard";
 import Navbar from "../components/layouts/Navbar";
 import Footer from "../components/layouts/Footer";
-import HeroSection from "../components/hero/HeroSection";
 import PostList from "../components/posts/PostList";
 
 function PostPage() {
