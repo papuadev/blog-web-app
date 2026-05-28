@@ -1,28 +1,28 @@
 import { useState, type FormEvent } from "react";
-import { login } from "../../services/auth.service";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { register } from "../../services/auth.service";
+import { Link, useNavigate } from "react-router-dom";
 
-function LoginPage() {
+function RegisterPage() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const registerMessage = location.state?.message;
-
-  const handleLogin = async (e: FormEvent) => {
+  const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
     try {
       setLoading(true);
-      const data = await login({
+      await register({
+        name,
         email,
         password,
       });
-      localStorage.setItem("token", data.token);
-      navigate("/");
+      navigate("/auth/login", {
+        state: { message: "Registrasi berhasil. Silahkan login." },
+      });
     } catch (err: any) {
       console.log(err.response?.data?.message);
       setError(err.response?.data?.message);
@@ -35,27 +35,32 @@ function LoginPage() {
     <div className="min-h-screen bg-background font-body-md text-on-surface flex items-center justify-center p-4">
       <div className="w-full max-w-md bg-surface-container-lowest rounded-xl shadow-sm border border-gray-300 p-8 md:p-10 transition-soft">
         <div className="mb-8 text-center">
-          {registerMessage && (
-            <div
-              style={{
-                color: "green",
-                backgroundColor: "#e6fff0",
-                padding: "10px",
-                marginBottom: "15px",
-              }}
-            >
-              {registerMessage}
-            </div>
-          )}
-          <h2 className="font-bold text-primary tracking-tight">
-            Welcome Back
+          <h2 className="font-bold text-primary text-xl tracking-tight">
+            Register Form
           </h2>
           <p className="font-caption text-caption text-on-surface-variant mt-2">
-            Silakan masuk untuk melanjutkan ke dashboard Anda
+            Silakan mengisi form dibawah
           </p>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-6">
+        <form onSubmit={handleRegister} className="space-y-6">
+          <div className="space-y-2">
+            <label
+              htmlFor="name"
+              className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider block"
+            >
+              Name
+            </label>
+            <input
+              id="name"
+              type="text"
+              placeholder="Your name here"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 border-outline-variant text-on-surface placeholder-outline bg-surface-container-lowest focus:outline-none focus:border-surface-tint focus:ring-1 focus:ring-surface-tint transition-all duration-200 text-sm"
+              required
+            />
+          </div>
           <div className="space-y-2">
             <label
               htmlFor="email"
@@ -117,12 +122,12 @@ function LoginPage() {
 
         <div className="mt-8 pt-6 border-t border-outline-variant text-center">
           <p className="font-caption text-caption text-on-surface-variant">
-            Belum punya akun?{" "}
+            Sudah punya akun?{" "}
             <Link
-              to={"/auth/register"}
+              to={"/auth/login"}
               className="text-primary font-semibold hover:underline"
             >
-              Daftar sekarang
+              Login
             </Link>
           </p>
         </div>
@@ -131,4 +136,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default RegisterPage;

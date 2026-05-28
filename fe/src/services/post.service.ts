@@ -1,3 +1,4 @@
+import type { CreatePost } from "../types/post.type";
 import api from "./api";
 
 export const getPosts = async () => {
@@ -8,4 +9,9 @@ export const getPosts = async () => {
 export const getPostById = async (id: number) => {
   const response = await api.get(`/posts/${id}`);
   return response.data.data;
+};
+
+export const createPost = async (data: CreatePost) => {
+  const response = await api.post("/posts", data);
+  return response.data;
 };

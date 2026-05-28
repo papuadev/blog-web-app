@@ -7,3 +7,8 @@ export type Post = {
   createdAt: string;
   user: User;
 };
+
+export type CreatePost = {
+  title: string;
+  content: string;
+};
