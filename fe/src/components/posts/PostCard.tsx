@@ -3,13 +3,31 @@ import type { Post } from "../../types/post.type";
 
 type Props = {
   post: Post;
+  onDelete: (id: number) => void;
 };
 
-function PostCard({ post }: Props) {
+function PostCard({ post, onDelete }: Props) {
+  const token = localStorage.getItem("token");
+
   return (
     <article className="group py-10">
       <p className="text-sm text-gray-500 mb-4">
         {new Date(post.createdAt).toLocaleDateString("en-ID")}
+        {token !== null && (
+          <>
+            |{" "}
+            <Link className="hover:underline" to={`/posts/edit/${post.id}`}>
+              Edit
+            </Link>{" "}
+            |{" "}
+            <button
+              onClick={() => onDelete(post.id)}
+              className="text-red-500 hover:underline"
+            >
+              Delete
+            </button>
+          </>
+        )}{" "}
       </p>
       <h2 className="text-4xl font-serif font-bold leading-tight mb-4 group-hover:underline cursor-pointer">
         {post.title}

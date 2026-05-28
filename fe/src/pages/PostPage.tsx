@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPosts } from "../services/post.service";
+import { getPosts, deletePost } from "../services/post.service";
 import type { Post } from "../types/post.type";
 import Navbar from "../components/layouts/Navbar";
 import Footer from "../components/layouts/Footer";
@@ -31,6 +31,22 @@ function PostPage() {
     }
   };
 
+  const handleDelete = async (id: number) => {
+    const confirmDelete = window.confirm("Delete this post?");
+
+    if (!confirmDelete) {
+      return;
+    }
+
+    try {
+      await deletePost(id);
+
+      fetchPosts();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-6">
       <Navbar />
@@ -46,7 +62,7 @@ function PostPage() {
           {successMessage}
         </div>
       )}
-      <PostList posts={posts} />
+      <PostList posts={posts} onDelete={handleDelete} />
       <Footer />
     </div>
   );

@@ -10,9 +10,7 @@ import { getPostById } from "../services/post.service";
 
 function DetailPostPage() {
   const { id } = useParams();
-
   const [post, setPost] = useState<Post | null>(null);
-
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

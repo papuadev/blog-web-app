@@ -5,6 +5,7 @@ import DetailPostPage from "./pages/DetailPostPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import CreatePostPage from "./pages/PostCreate";
+import EditPostPage from "./pages/PostEdit";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/auth/login" element={<LoginPage />} />
         <Route path="/auth/register" element={<RegisterPage />} />
         <Route path="/posts/create" element={<CreatePostPage />} />
+        <Route path="/posts/edit/:id" element={<EditPostPage />} />
       </Routes>
     </BrowserRouter>
   );
